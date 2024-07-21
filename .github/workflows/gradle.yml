@@ -35,6 +35,9 @@ jobs:
 
     - name: Setup permission
       run: chmod u+x ./gradlew
+
+    - name: Update dependencies
+      run: ./gradlew dependencies --refresh-dependencies
     
     - name: Build with Gradle Wrapper
       run: ./gradlew build
