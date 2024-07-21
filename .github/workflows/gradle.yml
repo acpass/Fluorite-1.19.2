@@ -35,12 +35,21 @@ jobs:
 
     - name: Setup permission
       run: chmod u+x ./gradlew
-
-    - name: Update dependencies
-      run: ./gradlew dependencies --refresh-dependencies
     
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
+    - name: Build with Gradle Wrapper 1
+      run: ./gradlew cleanBuild idea remapSpigotJar --no-daemon -i --stacktrace --refresh-dependencies
+
+    - name: Build with Gradle Wrapper 2
+      run: ./gradlew build --no-daemon -i --stacktrace
+
+    - name: Build with Gradle Wrapper 3
+      run: ./gradlew build collect --no-daemon -i --stacktrace
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Package
+        path: build/libs
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
